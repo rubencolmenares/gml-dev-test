@@ -6,18 +6,20 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Listado de usuarios') }}</div>
-                {{--<div class="card-body">
-                    @if(session()->has('success'))
-                        <div class="alert alert-success">
-                            {{session()->get('success')}}
+                <div class="card-body">
+                    <div class="row mb-3">
+                            <label for="id_categories" class="col-md-4 col-form-label text-md-end">{{ __('Buscar por categoria:') }}</label>
+
+                            <div class="col-md-6">                  
+                                <select id="id_categories" type="text" class="form-control @error('id_categories') is-invalid @enderror" name="id_categories" required autocomplete="id_categories" autofocus>
+                                    <option value="">Seleccione una categoria</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->category}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    @endif
-                    @if(session()->has('deleted'))
-                        <div class="alert alert-danger">
-                            {{session()->get('deleted')}}
-                        </div>
-                    @endif
-                </div>--}}
+                </div>
             </div>
         </div>
     </div>
@@ -48,7 +50,17 @@
                     <td>{{$usr->email}}</td>
                     <td>{{$usr->address}}</td>
                     <td>{{$usr->cellphone}}</td>
-                    <td>{{$usr->id_categories}}</td>
+                    <td>
+                        @if($usr->id_categories == 1)
+                            Cliente
+                        @elseif($usr->id_categories == 2)
+                            Proveedor
+                        @elseif($usr->id_categories == 3)
+                            Funcionario Interno
+                        @elseif($usr->id_categories == 4)
+                            Administrador
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
               </tbody>
