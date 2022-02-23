@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registro de usuarios') }}</div>
+                <div class="card-header">{{ __('Actualizar de usuarios') }}</div>
                     @if(session()->has('success'))
                         <div class="alert alert-success">
                             {{session()->get('success')}}
                         </div>
                     @endif
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('users.update', id) }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -163,7 +163,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Registar') }}
+                                    {{ __('Actualizar') }}
                                 </button>
                             </div>
                         </div>

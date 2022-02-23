@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 use DB;
 use Closure;
 use Auth;
+use Session;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -18,13 +19,11 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        //$user = User::where()
-        //if (auth()->check() && auth()->user()->id_categories == 4){
         if (auth()->check() && auth()->user()->id_categories == 4){
             return $next($request);
             //redirect('home');
         }else{
-            return redirect('login');
+            return redirect('/');
         }
     }
 }

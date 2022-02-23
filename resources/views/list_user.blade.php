@@ -8,17 +8,23 @@
                 <div class="card-header">{{ __('Listado de usuarios') }}</div>
                 <div class="card-body">
                     <div class="row mb-3">
-                            <label for="id_categories" class="col-md-4 col-form-label text-md-end">{{ __('Buscar por categoria:') }}</label>
-
-                            <div class="col-md-6">                  
-                                <select id="id_categories" type="text" class="form-control @error('id_categories') is-invalid @enderror" name="id_categories" required autocomplete="id_categories" autofocus>
-                                    <option value="">Seleccione una categoria</option>
+                        <label for="id_categories" class="col-md-4 col-form-label float-right">{{ __('Buscar por categoria:') }}</label>
+                        <form action = "{{route('users.index')}}" method="get">
+                            <div class="col-md-3">                  
+                                <select id="search" type="text" class="form-control" name="search" autocomplete="search" autofocus>
+                                    <option value="">Todas</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->category}}</option>
-                                    @endforeach
+                                     @endforeach
                                 </select>
+                                <div class="col-auto mt-3"> 
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Buscar') }}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,6 +43,7 @@
                   <th scope="col">Dirección</th>
                   <th scope="col">Celular</th>
                   <th scope="col">Categoria</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -51,15 +58,24 @@
                     <td>{{$usr->address}}</td>
                     <td>{{$usr->cellphone}}</td>
                     <td>
-                        @if($usr->id_categories == 1)
+                        @if($usr->id_categories == 1 ) 
                             Cliente
-                        @elseif($usr->id_categories == 2)
+                        @elseif($usr->id_categories == 2 ) 
                             Proveedor
-                        @elseif($usr->id_categories == 3)
+                        @elseif($usr->id_categories == 3 ) 
                             Funcionario Interno
-                        @elseif($usr->id_categories == 4)
+                        @elseif($usr->id_categories == 4 ) 
                             Administrador
                         @endif
+                    </td>
+                    <td>
+                        <a class="btn btn-success btn-sm" href="{{route('listuser.edit', $usr->id)}}">Editar</a>
+                        <br>
+                        <form action="{{ route('listuser.delete', $usr->id)}}" method="post">
+                           @method('delete')
+                           @csrf
+                           <input class="btn btn-danger btn-sm" type="submit" value="Delete" />
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -69,4 +85,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script src="{{ asset('js/register.js') }}" type="module"></script>
 @endsection

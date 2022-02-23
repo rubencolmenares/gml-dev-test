@@ -18,9 +18,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        /*CategoriesSeeder::class,
-        UserAdmirSeeder::class*/
 
+        //Insert categories on categories table
         DB::table('categories')->insert([
             'id' => '1',
             'category' => 'Cliente',
@@ -41,6 +40,7 @@ class DatabaseSeeder extends Seeder
             'category' => 'Administrador',
         ]);
 
+        //Insert admin user
         DB::table('users')->insert([
             'name' => 'Admin',
             'lastname' => 'GML',

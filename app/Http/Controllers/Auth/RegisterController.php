@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use Auth;
 use Session;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -87,6 +88,21 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'id_categories' => $data['id_categories'],
         ]);
-        session()->flash('success', 'El usuario ha sido registrado');
+
+        \Mail::send('resgister', array(
+                'name' => $data['name'],
+                'lastname' => $data['lastname'],
+                'cc_number' => $data['cc_number'],
+                'country' => $data['country'],
+                'email' => $data['email'],
+                'address' => $data['address'],
+                'cellphone' => $data['cellphone'],
+                'password' => Hash::make($data['password']),
+                'id_categories' => $data['id_categories'],
+            ), function($message) use ($data){
+                    $message->from('admin@gmail.com');
+                    $message->to($data->email)
+                             ->subject('Notifiación de nuevo usuario');
+        });
     }
 }

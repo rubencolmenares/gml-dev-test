@@ -18,7 +18,7 @@
                       <a href="{{route('register')}}" class="list-group-item list-group-item-action" aria-current="true">
                         Registrar usuarios
                       </a>
-                      <a href="{{route('users.list')}}" class="list-group-item list-group-item-action">
+                      <a href="{{route('users.index')}}" class="list-group-item list-group-item-action">
                         Listado de usuarios
                       </a>
                       {{--
